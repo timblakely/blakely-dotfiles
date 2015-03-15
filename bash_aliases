@@ -1,0 +1,1 @@
+alias n='nautilus `pwd`'
