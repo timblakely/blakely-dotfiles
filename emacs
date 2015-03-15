@@ -1,8 +1,9 @@
-;; -*- mode: Lisp; lexical-binding: t -*-
+;; -*- mode: Emacs-lisp; lexical-binding: t -*-
 ;;============================================
 ;; Emacs config
 ;;============================================
 
+(setq vc-follow-symlinks t)
 (add-to-list 'load-path "~/.emacs.d/")
 
 ;;=====================================
@@ -39,6 +40,14 @@
   (let ((full-path (cc/find-file-or-nil path prefix)))
     (when (and full-path (file-exists-p full-path))
       (add-to-list 'load-path full-path))))
+
+;;====================================
+;; Package-initialize
+;;=====================================
+
+(package-initialize)
+(add-to-list 'package-archives
+             '("marmalade" . "https://marmalade-repo.org/packages/"))
 
 ;;====================================
 ;; Text highlighting
