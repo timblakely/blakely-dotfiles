@@ -98,6 +98,13 @@ that uses 'font-lock-warning-face'."
                             ("^.\\{81,\\}$" (0 'my-long-line-face t))
                            ("[ \t]+$"      (0 'my-trailing-space-face t))))))))
 
+;;
+;; Formatting
+;;
+
+(load "clang-format.el")
+(global-set-key (kbd "C-M-S-f") 'clang-format-buffer)
+
 ;;=====================================
 ;; Whitespace - From ~adonovan/.emacs
 ;;=====================================
