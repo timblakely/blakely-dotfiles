@@ -106,6 +106,12 @@ that uses 'font-lock-warning-face'."
 (global-set-key (kbd "C-M-S-f") 'clang-format-buffer)
 
 ;;=====================================
+;; Javascript
+;;=====================================
+
+(setq js-indent-level 2)
+
+;;=====================================
 ;; Whitespace - From ~adonovan/.emacs
 ;;=====================================
 
@@ -222,7 +228,8 @@ it blindly to other people's files can cause enormously messy diffs!"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(gud-chdir-before-run nil)
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(js2-basic-offset 2))
 
 ;;------------------------------------------------------
 ;; Other configuration (e.g. google)
