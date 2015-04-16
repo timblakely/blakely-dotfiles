@@ -1,0 +1,14 @@
+/home/bats/git/boot/src/main.c
+/home/bats/git/boot/src/#main.c#
+/home/bats/git/boot/src/gyro/gyro.h
+/home/bats/git/boot/src/gyro/#gyro.h#
+/home/bats/git/boot/src/accel/accel.c
+/home/bats/git/boot/src/accel/#accel.c#
+/home/bats/git/boot/src/gyro/gyro.c
+/home/bats/git/boot/src/gyro/#gyro.c#
+/home/bats/git/boot/src/accel/accel.h
+/home/bats/git/boot/src/accel/#accel.h#
+/home/bats/git/boot/src/uart/uart.h
+/home/bats/git/boot/src/uart/#uart.h#
+/home/bats/git/boot/src/uart/uart.c
+/home/bats/git/boot/src/uart/#uart.c#
