@@ -231,6 +231,10 @@ it blindly to other people's files can cause enormously messy diffs!"
  '(inhibit-startup-screen t)
  '(js2-basic-offset 2))
 
+(setq js2-mode-hook
+  '(lambda () (progn
+    (set-variable 'indent-tabs-mode nil))))
+
 ;;------------------------------------------------------
 ;; Other configuration (e.g. google)
 ;;------------------------------------------------------
