@@ -9,7 +9,7 @@ import subprocess
 BASIC_LINKS = [
     # General
     'bash_aliases', 'bash_profile', 'bashrc', 'gitconfig',
-    'gitignore',
+    'gitignore', 'xinitrc', 'Xmodmap',
     # Editors
     'emacs', 'emacs.d', 'vimrc',
     # Languages
@@ -31,9 +31,6 @@ def Chdir(path):
 def _CreateLink(filename, linkname, indent='    '):
   """Link filename to linkname, returning True on success."""
   print '%s== Symlinking %s to %s' % (indent, filename, linkname)
-  if os.path.exists(linkname):
-    print '%sFile %s already exists, skipping.' % (indent, linkname)
-    return True
   if os.path.lexists(linkname):
     print '%s>> Removing broken symlink %s <<' % (indent, linkname)
     os.remove(linkname)
