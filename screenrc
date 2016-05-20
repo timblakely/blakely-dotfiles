@@ -1,0 +1,2 @@
+termcapinfo xterm* ti@:te
+caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
