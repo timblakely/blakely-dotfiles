@@ -83,7 +83,7 @@ fi
 PYTHONSTARTUP=$HOME'/.pythonrc'
 export PYTHONSTARTUP
 
-PATH="$HOME/bin:$PATH"
+PATH="$HOME/bin:$HOME/local/bin:$PATH"
 
 ####################################################
 # Aliases
@@ -126,6 +126,20 @@ shopt -s histappend
 # Save each command to the history, but don't reread it
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a"
 
+####################################################
+# cd -> pushd
+####################################################
+function cd ()                                                                                                                     
+{                                                                                                                                  
+  if [ "$1" == "" ]; then                                                                                                          
+    builtin cd                                                                                                                     
+  else                                                                                                                             
+    if [ -e $1 ]; then                                                                                                             
+      pushd $1 &> /dev/null   #dont display current stack                                                                          
+    fi                                                                                                                             
+  fi                                                                                                                               
+}  
+alias b='popd > /dev/null'
 
 ####################################################
 # Google config
@@ -148,3 +162,6 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
+
+export NVM_DIR="/usr/local/google/home/blakely/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
