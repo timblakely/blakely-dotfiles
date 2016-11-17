@@ -46,13 +46,13 @@ alias tt1="PS1=\"[\\[\\033[0;31m\\]\\h\\[\\033[0m\\]>\\[\\033[1;36m\\]\\W\\[\\03
 alias tt2="PS1=\"[\\[\\033[0;31m\\]\\h\\[\\033[0m\\]>\\[\\033[1;36m\\]\\w\\[\\033[0m\\]]> \""
 
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
+#case "$TERM" in
+#    xterm-color) color_prompt=yes;;
+#esac
 
-if [ "$TERM" = "xterm" ]; then
-   export TERM=vt100
-fi
+#if [ "$TERM" = "xterm" ]; then
+#   export TERM=vt100
+#fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile

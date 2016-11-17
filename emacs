@@ -190,13 +190,6 @@ it blindly to other people's files can cause enormously messy diffs!"
 
 
 ;;------------------------------------------------------
-;; Dart
-;;------------------------------------------------------
-
-(require 'dart-mode)
-(add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
-
-;;------------------------------------------------------
 ;; Window Management
 ;;------------------------------------------------------
 
