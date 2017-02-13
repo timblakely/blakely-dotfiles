@@ -10,6 +10,7 @@ BASIC_LINKS = [
     # General
     'bash_aliases', 'bash_profile', 'bashrc', 'gitconfig',
     'gitignore', 'xinitrc', 'Xmodmap', 'screenrc', 'pythonrc',
+    'jupyter',
     # Editors
     'emacs', 'emacs.d', 'vimrc',
     # Languages

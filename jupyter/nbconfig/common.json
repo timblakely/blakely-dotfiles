@@ -1,0 +1,21 @@
+{
+  "mixed_contents": {
+    "schema": [
+      {
+        "stripjs": false,
+        "root": "local",
+        "contents": "services/contents"
+      },
+      {
+        "stripjs": true,
+        "root": "gdrive",
+        "contents": "./drive-contents"
+      }
+    ]
+  },
+    "gdrive": {
+	"METADATA_SCOPE": true,
+	"FILE_SCOPE": true,
+	"CLIENT_ID": "325355127622-rgpaj7ftnq98rdk6ik4amk7jsbrhj499.apps.googleusercontent.com"
+    }
+}
