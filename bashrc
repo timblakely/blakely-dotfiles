@@ -104,6 +104,8 @@ alias uuuuuuu='cd ../../../../../../../'
 alias uuuuuuuu='cd ../../../../../../../../'
 alias uuuuuuuuu='cd ../../../../../../../../../'
 alias uuuuuuuuuu='cd ../../../../../../../../../../'
+alias venv='source ~/venv/bin/activate'
+alias venv3='source ~/venv3/bin/activate'
 
 # Overwrite aliases if we need to
 if [ -f ~/.bash_aliases ]; then
