@@ -1,43 +1,52 @@
-function usage () {
-    cat<<EOF
-Usage: git_backup <cmd> <name_of_repo>"
+GIT_SERVER="192.168.0.2"
+GIT_USER="root"
+GIT_REPO_DIR="repo"
+GIT_BACKUP_REMOTE_NAME="backup"
 
-Commands:
-  add
-  rename
-EOF
+declare -a known_commands=("add" "rename" "init")
+
+function remote_cmd () {
+  # Kinda dangerous....
+  ssh -T root@192.168.0.2 "$1"
+  return $?
 }
 
-if [[ -z "$1" ]]; then
-  usage
-  exit 1
-fi
+function repo_exists() {
+  repo=$1
+  remote_cmd << EOF
+    echo "Checking for existing repo ${repo}..."
+    if [[ -d "${repo}" ]]; then
+      exit 0
+    fi
+    exit 1
+EOF
+  return $?
+}
 
-CMD="$1"
-ALL_ARGS=($@)
-CMD_ARGS=${ALL_ARGS[@]:1}
+function repo_dir () {
+  echo ${GIT_REPO_DIR}/$1.git
+}
 
 function add () {
   if [[ $# -ne 1 ]]; then
     echo "Usage: git_backup add <repo>"
     exit 1
   fi
-  repo=repo/"$1".git
-
-  ssh -T root@192.168.0.2 << EOF
-    set -x
-    echo "Checking for existing repo ${repo}..."
-    if [[ -d "${repo}" ]]; then
-      echo "ERR: Repo ${repo} already exists"
-      exit 1
-    fi
-    echo "Creating directory ${repo}..."
-    mkdir "${repo}"
-    echo "Changing directory to ${repo}..."
-    cd "${repo}"
-    echo "Initializing git repo..."
-    git --bare init
-    echo "Done"
+  
+  repo=$(repo_dir "$1")
+  if repo_exists "${repo}"; then
+    echo "ERR: Repo ${repo} already exists"
+    exit 1
+  fi
+  
+  remote_cmd << EOF 
+  echo "Creating directory ${repo}..."
+  mkdir "${repo}"
+  echo "Changing directory to ${repo}..."
+  cd "${repo}"
+  echo "Initializing git repo..."
+  git --bare init
+  echo "Done"
 EOF
 }
 
@@ -46,30 +55,80 @@ function rename () {
     echo "Usage: git_backup rename <old_repo> <new_repo>"
     exit 1
   fi
-  old_repo=repo/"$1".git
-  new_repo=repo/"$2".git
+  old_repo=$(repo_dir "$1")
+  new_repo=$(repo_dir "$2")
 
-  ssh -T root@192.168.0.2 << EOF
-    echo "Checking for existing repo ${old_repo}..."
-    if [[ ! -d "${old_repo}" ]]; then
-      echo "ERR: Repo ${old_repo} does not exist"
-      exit 1
-    fi
-    echo "Checking for existing repo ${new_repo}..."
-    if [[ -d "${new_repo}" ]]; then
-      echo "ERR: Repo ${new_repo} already exists"
-      exit 1
-    fi
-    echo "Moving repo ${old_repo} to ${new_repo}..."
-    mv $old_repo $new_repo
-    echo "Done"
+  if ! repo_exists "${old_repo}"; then
+    echo "ERR: Repo ${old_repo} doesn't exist"
+    exit 1
+  fi
+
+  if repo_exists "${new_repo}"; then
+    echo "ERR: Repo ${new_repo} already exists"
+    exit 1
+  fi
+
+  remote_cmd << EOF
+  echo "Moving repo ${old_repo} to ${new_repo}..."
+  mv $old_repo $new_repo
+  echo "Done"
 EOF
 }
 
-declare -a known_commands=("add" "rename")
+function init () {
+  if [[ ! -d .git ]]; then
+    echo "Not a git repo?"
+    return 1
+  fi
+
+  short_repo=$(basename $(pwd))
+  repo=$(repo_dir "$short_repo")
+
+  if ! repo_exists "${repo}"; then
+    echo "Repo ${repo} does not exist, creating..."
+    add ${short_repo}
+  else 
+    echo "Repo ${repo} already exists on server"
+  fi
+
+  declare -a remotes="$(git remote)"
+  if contains_string "${GIT_BACKUP_REMOTE_NAME}" ${remotes[@]}; then
+    echo "Existing remote \"${GIT_BACKUP_REMOTE_NAME}\", removing"
+    git remote remove "${GIT_BACKUP_REMOTE_NAME}"
+  fi 
+
+  echo "Adding remote \"${GIT_BACKUP_REMOTE_NAME}\" located at ${GIT_SERVER}..."
+  echo "${GIT_USER}@${GIT_SERVER}:${repo}"
+  git remote add "${GIT_BACKUP_REMOTE_NAME}" "${GIT_USER}@${GIT_SERVER}:${repo}"
+  echo "Done"
+}
+
+#################
+
+function usage () {
+  cat<<EOF
+Usage: git_backup <cmd> <name_of_repo>"
+
+Commands:
+EOF
+  printf '  %s\n' "${known_commands[@]}"
+}
+
+if [[ -z "$1" ]]; then
+  usage
+  exit 1
+fi
+CMD="$1"
+ALL_ARGS=($@)
+CMD_ARGS=${ALL_ARGS[@]:1}
 
 shopt -s extglob
 
+function contains_string () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
 function join_by () {
   local IFS="$1"
   shift
