@@ -5,7 +5,11 @@
 
 (setq vc-follow-symlinks t)
 ;; (add-to-list 'load-path "~/.emacs.d/")
-
+(setq indent-tabs-mode nil)
+(setq tab-width 2)
+(setq indent-line-function 'insert-tab)
+(setq sh-basic-offset 2
+      sh-indentation 2)
 ;;=====================================
 ;; Utilities
 ;;=====================================
