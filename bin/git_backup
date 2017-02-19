@@ -1,0 +1,87 @@
+function usage () {
+    cat<<EOF
+Usage: git_backup <cmd> <name_of_repo>"
+
+Commands:
+  add
+  rename
+EOF
+}
+
+if [[ -z "$1" ]]; then
+  usage
+  exit 1
+fi
+
+CMD="$1"
+ALL_ARGS=($@)
+CMD_ARGS=${ALL_ARGS[@]:1}
+
+function add () {
+  if [[ $# -ne 1 ]]; then
+    echo "Usage: git_backup add <repo>"
+    exit 1
+  fi
+  repo=repo/"$1".git
+
+  ssh -T root@192.168.0.2 << EOF
+    set -x
+    echo "Checking for existing repo ${repo}..."
+    if [[ -d "${repo}" ]]; then
+      echo "ERR: Repo ${repo} already exists"
+      exit 1
+    fi
+    echo "Creating directory ${repo}..."
+    mkdir "${repo}"
+    echo "Changing directory to ${repo}..."
+    cd "${repo}"
+    echo "Initializing git repo..."
+    git --bare init
+    echo "Done"
+EOF
+}
+
+function rename () {
+  if [[ $# -ne 2 ]]; then
+    echo "Usage: git_backup rename <old_repo> <new_repo>"
+    exit 1
+  fi
+  old_repo=repo/"$1".git
+  new_repo=repo/"$2".git
+
+  ssh -T root@192.168.0.2 << EOF
+    echo "Checking for existing repo ${old_repo}..."
+    if [[ ! -d "${old_repo}" ]]; then
+      echo "ERR: Repo ${old_repo} does not exist"
+      exit 1
+    fi
+    echo "Checking for existing repo ${new_repo}..."
+    if [[ -d "${new_repo}" ]]; then
+      echo "ERR: Repo ${new_repo} already exists"
+      exit 1
+    fi
+    echo "Moving repo ${old_repo} to ${new_repo}..."
+    mv $old_repo $new_repo
+    echo "Done"
+EOF
+}
+
+declare -a known_commands=("add" "rename")
+
+shopt -s extglob
+
+function join_by () {
+  local IFS="$1"
+  shift
+  echo "$*"
+}
+
+case_commands=$(join_by "|" ${known_commands[@]})
+
+case "$CMD" in
+  @($case_commands) ) "${CMD}" ${CMD_ARGS}
+	 ;;
+  *) echo "Unknown command: $CMD"
+     usage
+     ;;
+esac
