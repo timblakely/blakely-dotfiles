@@ -4,7 +4,7 @@
 ;;============================================
 
 (setq vc-follow-symlinks t)
-(add-to-list 'load-path "~/.emacs.d/")
+;; (add-to-list 'load-path "~/.emacs.d/")
 
 ;;=====================================
 ;; Utilities
@@ -102,7 +102,7 @@ that uses 'font-lock-warning-face'."
 ;; Formatting
 ;;
 
-(load "clang-format.el")
+(load "~/.emacs.d/clang-format/clang-format.el")
 (global-set-key (kbd "C-M-S-f") 'clang-format-buffer)
 
 ;;=====================================
