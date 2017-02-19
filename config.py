@@ -9,7 +9,7 @@ import subprocess
 BASIC_LINKS = [
     # General
     'bash_aliases', 'bash_profile', 'bashrc', 'gitconfig',
-    'gitignore', 'xinitrc', 'Xmodmap', 'screenrc', 'pythonrc',
+    'gitignore', 'xinitrc', 'Xmodmap', 'screenrc',
     'jupyter',
     # Editors
     'emacs', 'emacs.d', 'vimrc',

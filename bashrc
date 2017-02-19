@@ -86,6 +86,22 @@ export PYTHONSTARTUP
 PATH="$HOME/bin:$HOME/local/bin:$PATH"
 
 ####################################################
+# ESP32 path and environment variables
+####################################################
+
+PATH="${PATH}:$HOME/esp/xtensa-esp32-elf/bin"
+export IDF_PATH=$HOME/esp/esp-idf
+
+alias mo0='python -m serial.tools.miniterm --rts 0 --dtr 0 --raw /dev/ttyUSB0 115200'
+alias mo1='python -m serial.tools.miniterm --rts 0 --dtr 0 --raw /dev/ttyUSB1 115200'
+
+####################################################
+# arm toolchain path and environment variables
+####################################################
+
+export PATH="${PATH}":/home/tim/gcc-arm-none-eabi-6_2-2016q4/bin
+
+####################################################
 # Aliases
 ####################################################
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'

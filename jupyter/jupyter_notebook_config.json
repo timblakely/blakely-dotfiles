@@ -1,26 +1,26 @@
 {
-  "NotebookApp": {
-    "tornado_settings": {
-      "contents_js_source": "nbextensions/gdrive/mixed-contents"
-    },
-    "password": "sha1:15113e834726:c85aa5e7a315e047c89fd23acf828f3b1361dd2b",
-    "port": 8888,
-    "contents_manager_class": "jupyterdrive.mixednbmanager.MixedContentsManager",
-    "ip": "*",
-    "keyfile": "/var/key.key",
-    "certfile": "/var/cert.pem"
-  },
-  "format": 1,
   "MixedContentsManager": {
     "filesystem_scheme": [
       {
-        "root": "local",
-        "contents": "jupyterdrive.mixednbmanager.FileContentsManager"
+        "contents": "jupyterdrive.mixednbmanager.FileContentsManager",
+        "root": "local"
       },
       {
-        "root": "gdrive",
-        "contents": "jupyterdrive.clientsidenbmanager.ClientSideContentsManager"
+        "contents": "jupyterdrive.clientsidenbmanager.ClientSideContentsManager",
+        "root": "gdrive"
       }
     ]
+  },
+  "format": 1,
+  "NotebookApp": {
+    "password": "sha1:15113e834726:c85aa5e7a315e047c89fd23acf828f3b1361dd2b",
+    "keyfile": "/home/tim/.jupyter/key.key",
+    "tornado_settings": {
+      "contents_js_source": "nbextensions/gdrive/mixed-contents"
+    },
+    "ip": "*",
+    "contents_manager_class": "jupyterdrive.mixednbmanager.MixedContentsManager",
+    "certfile": "/home/tim/.jupyter/cert.pem",
+    "port": 8888
   }
 }
