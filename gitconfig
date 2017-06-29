@@ -4,6 +4,7 @@
 [alias]
 	amend = commit --amend --no-edit
 	delete-merged-branches = "!git checkout master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+	serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
 [diff]
 	tool = meld
 [difftool]
