@@ -26,7 +26,7 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-export GIT_EDITOR="emacs"
+export GIT_EDITOR="vi"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -152,7 +152,9 @@ function cd ()
   if [ "$1" == "" ]; then                                                                                                          
     builtin cd                                                                                                                     
   else                                                                                                                             
-    if [ -e $1 ]; then                                                                                                             
+    if [[ ! (( -d "$1" || -L "$1" )) ]]; then
+      builtin cd $1
+    elif [ -e $1 ]; then  
       pushd $1 &> /dev/null   #dont display current stack                                                                          
     fi                                                                                                                             
   fi                                                                                                                               
