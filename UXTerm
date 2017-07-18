@@ -1,0 +1,6 @@
+UXTerm*faceName: Monaco
+UXTerm*faceSize: 10
+UXTerm*scrollback: 4000
+UXTerm*background: black
+UXTerm*foreground: white
+UXTerm*vt100*geometry: 100x50

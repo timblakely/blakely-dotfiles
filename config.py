@@ -17,6 +17,7 @@ BASIC_LINKS = [
     'Xmodmap',
     'screenrc',
     'jupyter',
+    'UXTerm',
     # Editors
     'emacs',
     'emacs.d',
