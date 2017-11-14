@@ -1,0 +1,5 @@
+! Useful info: http://www.futurile.net/2016/06/14/xterm-setup-and-truetype-font-configuration/
+*xterm*faceName: Monaco
+*xterm*faceSize: 10
+*xterm*renderFont: true
+*xterm*geometry: 200x60

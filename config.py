@@ -15,6 +15,7 @@ BASIC_LINKS = [
     'gitignore',
     'xinitrc',
     'Xmodmap',
+    'Xresources',
     'screenrc',
     'jupyter',
     'UXTerm',
