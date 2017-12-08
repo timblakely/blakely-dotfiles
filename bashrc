@@ -84,7 +84,7 @@ fi
 PYTHONSTARTUP=$HOME'/.pythonrc'
 export PYTHONSTARTUP
 
-PATH="$HOME/bin:$HOME/local/bin:$PATH"
+PATH="$HOME/bin:$HOME/local/bin:$HOME/.npm-global/bin:$PATH"
 
 ####################################################
 # ESP32 path and environment variables
@@ -186,3 +186,4 @@ fi
 
 export NVM_DIR="/usr/local/google/home/blakely/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
