@@ -26,7 +26,9 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-export GIT_EDITOR="vi"
+export GIT_EDITOR="/usr/bin/code -w"
+export EDITOR="/usr/bin/code -w"
+export VISUAL="/usr/bin/code -w"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -148,18 +150,18 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a"
 ####################################################
 # cd -> pushd
 ####################################################
-function cd ()                                                                                                                     
-{                                                                                                                                  
-  if [ "$1" == "" ]; then                                                                                                          
-    builtin cd                                                                                                                     
-  else                                                                                                                             
+function cd ()
+{
+  if [ "$1" == "" ]; then
+    builtin cd
+  else
     if [[ ! (( -d "$1" || -L "$1" )) ]]; then
       builtin cd $1
-    elif [ -e $1 ]; then  
-      pushd $1 &> /dev/null   #dont display current stack                                                                          
-    fi                                                                                                                             
-  fi                                                                                                                               
-}  
+    elif [ -e $1 ]; then
+      pushd $1 &> /dev/null   #dont display current stack
+    fi
+  fi
+}
 alias b='popd > /dev/null'
 
 ####################################################
