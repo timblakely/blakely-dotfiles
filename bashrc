@@ -126,6 +126,9 @@ alias uuuuuuuuuu='cd ../../../../../../../../../../'
 alias venv='source ~/venv/bin/activate'
 alias venv3='source ~/venv3/bin/activate'
 
+# Allows sudo aliases
+alias sudo='sudo '
+
 # Overwrite aliases if we need to
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
