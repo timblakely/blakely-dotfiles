@@ -139,7 +139,7 @@ fi
 ####################################################
 
 # Avoid duplicates
-export HISTCONTROL=ignoredups:erasedups
+export HISTCONTROL=ignoredups:erasedups:ignorespace
 export HISTSIZE=""
 # When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
@@ -168,6 +168,18 @@ function cd ()
 alias b='popd > /dev/null'
 
 ####################################################
+# K8s
+####################################################
+
+alias k="kubectl"
+
+####################################################
+# Libvirt
+####################################################
+
+export LIBVIRT_DEFAULT_URI=qemu:///system
+
+####################################################
 # Google config
 ####################################################
 
@@ -189,6 +201,8 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-export NVM_DIR="/usr/local/google/home/blakely/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/data/docker_registry
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
