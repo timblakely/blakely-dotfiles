@@ -1,0 +1,1 @@
+source /Users/"${USER}"/.bashrc
